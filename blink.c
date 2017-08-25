@@ -2,7 +2,7 @@
 /*
 	lightup LED with register
   */
-#include "stm32f4xx.h" 
+#include "stm32l4xx.h" 
 int t=100000;
 void delay(int a);
 

@@ -17,7 +17,7 @@ CFLAGS_INCLUDE=-I.
 
 CFLAGS_DEFINE= \
 	-D USE_STDPERIPH_DRIVER \
-	-D STM32F429_439xx \
+	-D STM32L4xx \
 	-D __FPU_PRESENT=1 \
 	-D ARM_MATH_CM4 \
 	-D __FPU_USED=1 \
@@ -50,12 +50,12 @@ CFLAGS=-g $(ARCH_FLAGS)\
 
 LDFLAGS +=$(CFLAGS_NEW_LIB_NANO) --static -Wl,--gc-sections
 
-LDFLAGS +=-T stm32f429zi_flash.ld
+LDFLAGS +=-T STM32L476VG_FLASH.ld
 LDLIBS +=-Wl,--start-group -lm -Wl,--end-group
 
 #============================================================================#
 
-STARTUP=./startup_stm32f429_439xx.o
+STARTUP=./startup_stm32l476xx.o
 
 OBJS= ./blink.o \
 	$(STARTUP) 
@@ -115,13 +115,13 @@ cgdb_bmp:
 	#-c "transport select hla_swd" 
 flash_openocd:
 	openocd -f interface/cmsis-dap.cfg \
-	-f target/stm32f4x.cfg \
+	-f target/stm32l4x.cfg \
 	-c "init" \
 	-c "reset init" \
 	-c "halt" \
 	-c "flash write_image erase $(PROJECT).elf" \
 	-c "verify_image $(PROJECT).elf" \
-	-c "reset run" #-c shutdown
+	-c "reset run" -c shutdown
 #automatically formate
 astyle: 
 	astyle -r --exclude=lib  *.c *.h
