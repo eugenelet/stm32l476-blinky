@@ -1,1 +1,1 @@
-# stm32f429-blinky
+# stm32l476-blinky
